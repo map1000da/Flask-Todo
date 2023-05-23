@@ -19,11 +19,13 @@ Migrate(app, db)
 #Taskテーブル
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100))
+    title = db.Column(db.String(100)) #タイトル
+    status = db.Column(db.String(20))
     created_date = db.Column(db.Date)
 
-    def __init__(self, title, created_date):
+    def __init__(self, title, status, created_date):
         self.title = title
+        self.status = status
         self.created_date = created_date
 
     #Task クラスのインスタンスが表示される際に以下の形式で表示されるようにする
