@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>タスクを追加する</title>
+</head>
+<body>
+    <h1>タスクを追加する</h1>
+    <form method="POST" action="{{ url_for('add_task') }}">
+        <label for="title">タイトル：</label>
+        <input type="text" name="title" required><br>
+        <label for="status">ステータス:</label>
+        <input type="text" name="status" required><br>
+        <input type="submit" value="追加">
+    </form>
+</body>
+</html>

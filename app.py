@@ -1,9 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import os
 
-from datetime import datetime
+import datetime
 
 app = Flask(__name__)
 
@@ -36,6 +36,20 @@ class Task(db.Model):
 def index():
     tasks = Task.query.all() #データベースからタスク一覧を取得
     return render_template("index.html", tasks = tasks)
+
+@app.route("/add_task", methods=["GET", "POST"])
+def add_task():
+    if request.method == "POST": #POSTメソッドではフォームから送信されたタスクの情報をDBに追加する．
+        title = request.form["title"]
+        status = request.form["status"]
+        creted_date = datetime.date.today()
+        new_task = Task(title, status, creted_date)
+        db.session.add(new_task)
+        db.session.commit()
+
+        return redirect(url_for("index"))
+    
+    return render_template("add_task.html") #GETメソッドではadd_task.htmlを表示する．
 
 if __name__ == "__main__":
     app.run(debug=True)
