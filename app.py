@@ -51,5 +51,18 @@ def add_task():
     
     return render_template("add_task.html") #GETメソッドではadd_task.htmlを表示する．
 
+@app.route("/edit_task/<int:task_id>", methods=["GET", "POST"])
+def edit_task(task_id):
+    task = Task.query.get(task_id)
+    if task:
+        if request.method == "POST":
+            task.title = request.form["title"]
+            task.status = request.form["status"]
+            db.session.commit()
+            return redirect(url_for("index"))
+        return render_template("edit_task.html", task=task)
+    return redirect(url_for("index"))
+
+
 if __name__ == "__main__":
     app.run(debug=True)

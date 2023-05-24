@@ -27,13 +27,13 @@
                     <td>{{ task.title }}</td>
                     <td>{{ task.status }}</td>
                     <td>{{ task.created_date }}</td>
-                    <td><a href="#">編集</a></td>
+                    <td><a href="{{ url_for('edit_task', task_id=task.id )}}">編集</a></td>
                 </tr>
                 {% endfor%}
             </tbody>
         </table>
         <div class="add-task">
-            <a href="add_task">タスクを追加する</a>
+            <a href="{{ url_for('add_task') }}">タスクを追加する</a>
         </div>  
     </div>
 </body>
