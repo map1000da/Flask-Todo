@@ -9,7 +9,11 @@
         <label for="title">タイトル：</label>
         <input type="text" name="title" required><br>
         <label for="status">ステータス:</label>
-        <input type="text" name="status" required><br>
+        <select name="status" required>
+            <option value="未着手">未着手</option>
+            <option value="進行中">進行中</option>
+            <option value="完了">完了</option>
+        </select><br>
         <input type="submit" value="追加">
     </form>
 </body>

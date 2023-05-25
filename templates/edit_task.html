@@ -10,7 +10,11 @@
         <label for="title">タイトル:</label>
         <input type="text" name="title" value="{{ task.title }}" required><br>
         <label for="status">ステータス:</label>
-        <input type="text" name="status" value="{{ task.status }}" required><br>
+        <select name="status" required>
+            <option value="未着手"{% if task.status == '未着手'%}selected{% endif %}>未着手</option>
+            <option value="未着手"{% if task.status == '進行中'%}selected{% endif %}>進行中</option>
+            <option value="未着手"{% if task.status == '完了'%}selected{% endif %}>完了</option>
+        </select><br>
         <input type="submit" value="更新">
     </form>
 </body>
