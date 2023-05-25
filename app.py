@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import os
@@ -54,6 +54,7 @@ def add_task():
 @app.route("/edit_task/<int:task_id>", methods=["GET", "POST"])
 def edit_task(task_id):
     task = Task.query.get(task_id)
+    print(task_id)
     if task:
         if request.method == "POST":
             task.title = request.form["title"]
@@ -61,6 +62,18 @@ def edit_task(task_id):
             db.session.commit()
             return redirect(url_for("index"))
         return render_template("edit_task.html", task=task)
+    return redirect(url_for("index"))
+
+@app.route("/delete_task/<int:task_id>", methods=["GET","POST"])
+def delete_task(task_id):
+    print("delete_task_id:",task_id)
+    task = Task.query.get(task_id)
+
+    if task:
+        db.session.delete(task)
+        db.session.commit()
+        #flash("タスクが削除されました", "success")
+
     return redirect(url_for("index"))
 
 
